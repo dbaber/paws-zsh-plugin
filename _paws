@@ -1,0 +1,14 @@
+#compdef paws
+
+_paws() {
+  local -a profiles
+  profiles=(${=${(f)"$(grep '\[profile' ~/.aws/config 2>/dev/null | sed 's/profile\ //; s/\[//; s/\]//' | sort)"}})
+
+  _arguments -s \
+    '(-s --show -u --unset -h --help)'{-s,--show}'[Show current active AWS profile configuration]' \
+    '(-s --show -u --unset -h --help)'{-u,--unset}'[Unset the current AWS_PROFILE variable]' \
+    '(-s --show -u --unset -h --help)'{-h,--help}'[Show this help message]' \
+    '1:AWS Profile:($profiles)'
+}
+
+_paws "$@"
